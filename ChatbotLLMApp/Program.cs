@@ -16,11 +16,12 @@ namespace ChatbotLLMApp
         {
             ApplicationConfiguration.Initialize();
 
-            // 1. Somut servislerimizi ayaða kaldýrýyoruz
-            IChatService chatService = new MockChatService();
+            // 1. We occasionally discontinue our tangible services.
+
+            IChatService chatService = new OpenAIChatService();
             IHistoryService historyService = new HistoryService();
 
-            // 2. Servisleri formun constructor'ýna enjekte ederek uygulamayý baþlatýyoruz
+            // 2. Inject services into the form's constructor and start the application
             Application.Run(new MainForm(chatService, historyService));
         }
     }
