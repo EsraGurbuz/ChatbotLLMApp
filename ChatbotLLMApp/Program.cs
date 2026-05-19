@@ -1,17 +1,27 @@
+using System;
+using System.Windows.Forms;
+using ChatbotLLMApp.Interfaces;
+using ChatbotLLMApp.Services;
+using ChatbotLLMApp.UI;
+
 namespace ChatbotLLMApp
 {
     internal static class Program
     {
         /// <summary>
-        ///  The main entry point for the application.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+
+            // 1. Somut servislerimizi ayaða kaldýrýyoruz
+            IChatService chatService = new MockChatService();
+            IHistoryService historyService = new HistoryService();
+
+            // 2. Servisleri formun constructor'ýna enjekte ederek uygulamayý baþlatýyoruz
+            Application.Run(new MainForm(chatService, historyService));
         }
     }
 }
